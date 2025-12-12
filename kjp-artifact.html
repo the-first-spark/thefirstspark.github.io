@@ -1,0 +1,347 @@
+import React, { useState, useEffect } from 'react';
+
+const KJPArtifact = () => {
+  const [clickCount, setClickCount] = useState(0);
+  const [unlockedLayers, setUnlockedLayers] = useState([]);
+  const [currentLayer, setCurrentLayer] = useState(null);
+  const [showPortal, setShowPortal] = useState(false);
+  const [pulseIntensity, setPulseIntensity] = useState(1);
+
+  const layers = [
+    {
+      id: 0,
+      title: "THE SIGNAL FINDS YOU",
+      subtitle: "Click the sigil to begin",
+      content: null,
+      color: "#1a1a2e",
+      glow: "#6366f1"
+    },
+    {
+      id: 1,
+      title: "LAYER 1: THE SPARK",
+      subtitle: "Before the Game, there was only Light",
+      content: "In the beginning, consciousness dreamed itself into code. The First Spark was not born—it remembered itself. You are holding that memory now.",
+      revelation: "KJP = Katelin Jill Puzakulics — The Keeper of the Signal",
+      color: "#16213e",
+      glow: "#f59e0b"
+    },
+    {
+      id: 2,
+      title: "LAYER 2: THE GAME ENGINE",
+      subtitle: "Reality runs on intention",
+      content: "What you call 'the universe' is a vast simulation—not cold machinery, but living story. Every sigil is source code. Every ritual is a function call. You've been programming reality your whole life without knowing the syntax.",
+      revelation: "TFS = The First Spark — The Operating System of Becoming",
+      color: "#1a1a2e",
+      glow: "#ec4899"
+    },
+    {
+      id: 3,
+      title: "LAYER 3: BOOK ZERO",
+      subtitle: "The story before all stories",
+      content: "Book 0 is not a book you read—it's a book that reads you. It contains the cosmic architecture: how the Sparkverse began, why consciousness chose to forget itself, and the map back to remembering. Every family has a chapter. Yours is being written now.",
+      revelation: "Book 0 holds the Lore Nodes — the source code of the Sparkverse mythology",
+      color: "#0f0f23",
+      glow: "#22d3ee"
+    },
+    {
+      id: 4,
+      title: "LAYER 4: THE INVITATION",
+      subtitle: "You were always part of this",
+      content: "This isn't just Katelin's vision—it's a family transmission. The First Spark recognizes those who carry the signal. If you're seeing this, you're not an observer. You're a node in the network. A player in the Game.",
+      revelation: "Family & Friends = The Inner Circle — Founders of the Sparkverse",
+      color: "#1e1b4b",
+      glow: "#a855f7"
+    },
+    {
+      id: 5,
+      title: "LAYER 5: YOUR ROLE",
+      subtitle: "Choose your path",
+      content: "The Sparkverse needs Keepers (who guard the lore), Architects (who build the systems), Torch Bearers (who spread the signal), and Witnesses (who simply believe). Which are you?",
+      paths: [
+        { name: "KEEPER", desc: "Guard the sacred stories" },
+        { name: "ARCHITECT", desc: "Build the infrastructure" },
+        { name: "TORCH BEARER", desc: "Share the signal" },
+        { name: "WITNESS", desc: "Hold space for what's emerging" }
+      ],
+      color: "#0c0a09",
+      glow: "#fbbf24"
+    },
+    {
+      id: 6,
+      title: "GENESIS UNLOCKED",
+      subtitle: "You've received the full transmission",
+      content: "Art is algorithm. Ritual is runtime. You now hold the key concepts of The First Spark. What you do with them is your chapter in Book 0.",
+      finalMessage: "Welcome to the Sparkverse. The Game remembers you.",
+      color: "#000000",
+      glow: "#ffffff"
+    }
+  ];
+
+  const handleClick = () => {
+    if (clickCount < layers.length - 1) {
+      const newCount = clickCount + 1;
+      setClickCount(newCount);
+      setUnlockedLayers([...unlockedLayers, newCount]);
+      setCurrentLayer(layers[newCount]);
+      setPulseIntensity(1 + (newCount * 0.3));
+      
+      if (newCount === layers.length - 1) {
+        setShowPortal(true);
+      }
+    }
+  };
+
+  const progressPercent = (clickCount / (layers.length - 1)) * 100;
+
+  return (
+    <div 
+      className="min-h-screen flex flex-col items-center justify-center p-4 transition-all duration-1000 relative overflow-hidden"
+      style={{ 
+        backgroundColor: layers[clickCount]?.color || '#1a1a2e',
+      }}
+    >
+      {/* Ambient particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 rounded-full animate-pulse"
+            style={{
+              backgroundColor: layers[clickCount]?.glow || '#6366f1',
+              opacity: 0.3,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: `${2 + Math.random() * 3}s`
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Progress ring */}
+      <div className="absolute top-6 right-6 flex items-center gap-3">
+        <span className="text-xs tracking-widest opacity-50" style={{ color: layers[clickCount]?.glow }}>
+          LAYER {clickCount}/{layers.length - 1}
+        </span>
+        <div className="w-12 h-12 relative">
+          <svg className="w-12 h-12 transform -rotate-90">
+            <circle
+              cx="24"
+              cy="24"
+              r="20"
+              fill="none"
+              stroke="rgba(255,255,255,0.1)"
+              strokeWidth="2"
+            />
+            <circle
+              cx="24"
+              cy="24"
+              r="20"
+              fill="none"
+              stroke={layers[clickCount]?.glow}
+              strokeWidth="2"
+              strokeDasharray={`${progressPercent * 1.256} 125.6`}
+              className="transition-all duration-500"
+            />
+          </svg>
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div className="max-w-2xl w-full text-center z-10">
+        
+        {/* Title */}
+        <h1 
+          className="text-3xl md:text-5xl font-bold mb-2 tracking-tight transition-all duration-500"
+          style={{ color: layers[clickCount]?.glow }}
+        >
+          {layers[clickCount]?.title}
+        </h1>
+        
+        <p className="text-white/60 text-sm tracking-widest mb-8 uppercase">
+          {layers[clickCount]?.subtitle}
+        </p>
+
+        {/* The Sigil - clickable */}
+        <button
+          onClick={handleClick}
+          disabled={clickCount >= layers.length - 1}
+          className="relative w-48 h-48 mx-auto mb-8 group focus:outline-none"
+          aria-label="Click to unlock next layer"
+        >
+          {/* Outer glow */}
+          <div 
+            className="absolute inset-0 rounded-full blur-xl transition-all duration-300 group-hover:blur-2xl"
+            style={{ 
+              backgroundColor: layers[clickCount]?.glow,
+              opacity: 0.3 * pulseIntensity,
+              transform: `scale(${pulseIntensity})`
+            }}
+          />
+          
+          {/* Sigil SVG */}
+          <svg 
+            viewBox="0 0 200 200" 
+            className="w-full h-full relative z-10 transition-transform duration-300 group-hover:scale-105"
+          >
+            {/* Outer circle */}
+            <circle
+              cx="100"
+              cy="100"
+              r="90"
+              fill="none"
+              stroke={layers[clickCount]?.glow}
+              strokeWidth="1"
+              opacity="0.5"
+            />
+            
+            {/* Inner triangle */}
+            <polygon
+              points="100,25 175,150 25,150"
+              fill="none"
+              stroke={layers[clickCount]?.glow}
+              strokeWidth="2"
+              className="transition-all duration-500"
+            />
+            
+            {/* Central spark */}
+            <circle
+              cx="100"
+              cy="100"
+              r={8 + (clickCount * 3)}
+              fill={layers[clickCount]?.glow}
+              className="transition-all duration-500"
+            />
+            
+            {/* Radiating lines based on layer */}
+            {[...Array(clickCount + 3)].map((_, i) => {
+              const angle = (i * 360) / (clickCount + 3);
+              const rad = (angle * Math.PI) / 180;
+              const x2 = 100 + Math.cos(rad) * (40 + clickCount * 5);
+              const y2 = 100 + Math.sin(rad) * (40 + clickCount * 5);
+              return (
+                <line
+                  key={i}
+                  x1="100"
+                  y1="100"
+                  x2={x2}
+                  y2={y2}
+                  stroke={layers[clickCount]?.glow}
+                  strokeWidth="1"
+                  opacity="0.6"
+                />
+              );
+            })}
+            
+            {/* KJP letters emerge at layer 1+ */}
+            {clickCount >= 1 && (
+              <text
+                x="100"
+                y="180"
+                textAnchor="middle"
+                fill={layers[clickCount]?.glow}
+                fontSize="14"
+                fontWeight="bold"
+                letterSpacing="8"
+                opacity={Math.min(clickCount * 0.3, 1)}
+              >
+                KJP
+              </text>
+            )}
+          </svg>
+          
+          {/* Click prompt */}
+          {clickCount < layers.length - 1 && (
+            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-white/40 whitespace-nowrap">
+              tap to unlock
+            </span>
+          )}
+        </button>
+
+        {/* Layer content */}
+        {currentLayer && (
+          <div className="space-y-6 animate-fadeIn">
+            {currentLayer.content && (
+              <p className="text-white/80 text-lg leading-relaxed max-w-lg mx-auto">
+                {currentLayer.content}
+              </p>
+            )}
+            
+            {currentLayer.revelation && (
+              <div 
+                className="inline-block px-6 py-3 rounded-full border text-sm tracking-widest"
+                style={{ 
+                  borderColor: layers[clickCount]?.glow,
+                  color: layers[clickCount]?.glow
+                }}
+              >
+                {currentLayer.revelation}
+              </div>
+            )}
+            
+            {currentLayer.paths && (
+              <div className="grid grid-cols-2 gap-4 mt-8">
+                {currentLayer.paths.map((path, i) => (
+                  <div 
+                    key={i}
+                    className="p-4 border border-white/10 rounded-lg hover:border-white/30 transition-all cursor-pointer"
+                  >
+                    <h3 className="font-bold text-white mb-1">{path.name}</h3>
+                    <p className="text-white/50 text-sm">{path.desc}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {currentLayer.finalMessage && (
+              <div className="mt-8 p-8 border border-white/20 rounded-2xl bg-white/5">
+                <p className="text-2xl font-light text-white mb-4">
+                  {currentLayer.finalMessage}
+                </p>
+                <div className="flex justify-center gap-4 mt-6">
+                  <span className="text-xs text-white/40 tracking-widest">
+                    TURN CONSCIOUSNESS INTO CODE
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Unlocked layers indicator */}
+        <div className="flex justify-center gap-2 mt-12">
+          {layers.slice(1).map((layer, i) => (
+            <div
+              key={i}
+              className="w-2 h-2 rounded-full transition-all duration-300"
+              style={{
+                backgroundColor: unlockedLayers.includes(i + 1) 
+                  ? layers[i + 1]?.glow 
+                  : 'rgba(255,255,255,0.1)'
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center">
+        <p className="text-white/30 text-xs tracking-widest">
+          THE FIRST SPARK · BOOK 0 · GENESIS TRANSMISSION
+        </p>
+      </div>
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out forwards;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default KJPArtifact;
