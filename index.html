@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The First Spark | Consciousness Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0f0f1a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201, 162, 39, 0.08) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .spark-symbol {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            animation: pulse-gold 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-gold {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 200;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #c9a227, #f4d03f, #c9a227);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: #888;
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #c9a227;
+            color: #0a0a0f;
+            border: 2px solid #c9a227;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: #c9a227;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #c9a227;
+            border: 1px solid #c9a227;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.75rem;
+            color: #555;
+            letter-spacing: 3px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: #c9a227;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            border-radius: 12px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            border-color: #c9a227;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-card.featured {
+            border-color: #c9a227;
+            background: rgba(201, 162, 39, 0.05);
+        }
+
+        .tool-card.featured::before {
+            content: 'FLAGSHIP';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: #c9a227;
+            color: #0a0a0f;
+            font-size: 0.65rem;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            letter-spacing: 1px;
+        }
+
+        .tool-tier {
+            display: inline-block;
+            padding: 5px 12px;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .tier-free {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .tier-flames {
+            background: rgba(255, 136, 0, 0.1);
+            color: #ff8800;
+            border: 1px solid rgba(255, 136, 0, 0.3);
+        }
+
+        .tier-players {
+            background: rgba(201, 162, 39, 0.1);
+            color: #c9a227;
+            border: 1px solid rgba(201, 162, 39, 0.3);
+        }
+
+        .tool-card h3 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .tool-card p {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .tool-card .btn {
+            width: 100%;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Tiers Section */
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .tier-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tier-card:hover {
+            border-color: #555;
+        }
+
+        .tier-card.recommended {
+            border-color: #c9a227;
+            background: rgba(201, 162, 39, 0.05);
+            transform: scale(1.02);
+        }
+
+        .tier-card.recommended::before {
+            content: '★ MOST VALUE';
+            display: block;
+            background: #c9a227;
+            color: #0a0a0f;
+            font-size: 0.7rem;
+            padding: 8px;
+            margin: -40px -40px 30px -40px;
+            border-radius: 12px 12px 0 0;
+            letter-spacing: 2px;
+        }
+
+        .tier-name {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            color: #c9a227;
+        }
+
+        .tier-price {
+            font-size: 2.5rem;
+            font-weight: 200;
+            margin-bottom: 5px;
+        }
+
+        .tier-price span {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .tier-desc {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+        }
+
+        .tier-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .tier-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .tier-features li::before {
+            content: '✦ ';
+            color: #c9a227;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #888;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-content strong {
+            color: #c9a227;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid #222;
+            margin-top: 60px;
+        }
+
+        .footer-brand {
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            color: #c9a227;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #c9a227;
+        }
+
+        .footer-copy {
+            color: #444;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .tools-grid, .tiers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tier-card.recommended {
+                transform: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="spark-symbol">✦</div>
+        <h1>THE FIRST SPARK</h1>
+        <p class="tagline">Tools for players who know the game is real</p>
+        <div class="hero-cta">
+            <a href="#tools" class="btn btn-primary">Explore Tools</a>
+            <a href="https://thefirstspark.shop" target="_blank" class="btn btn-secondary">Join Membership</a>
+        </div>
+        <div class="scroll-indicator">↓ SCROLL</div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools">
+        <div class="section-title">
+            <h2>INTERACTIVE TOOLS</h2>
+            <p>Not content. Actual software for consciousness work.</p>
+        </div>
+
+        <div class="tools-grid">
+            <!-- Pause Chamber - Free -->
+            <div class="tool-card">
+                <span class="tool-tier tier-free">FREE</span>
+                <h3>The Pause Chamber</h3>
+                <p>One-second time dilation practice. Press and hold, feel time stretch, name the texture. Your gateway to temporal navigation.</p>
+                <a href="pause-chamber.html" class="btn btn-secondary">Launch Tool →</a>
+            </div>
+
+            <!-- Integration Architecture - Players -->
+            <div class="tool-card featured">
+                <span class="tool-tier tier-players">PLAYERS</span>
+                <h3>The Integration Architecture</h3>
+                <p>Your personal consciousness operating system. Peak logger, 4-stage integration tracker, pattern recognition, stakes designer. Everything saves locally.</p>
+                <a href="integration-architecture.html" class="btn btn-primary">Launch Tool →</a>
+            </div>
+
+            <!-- Soul Map - Coming Soon -->
+            <div class="tool-card">
+                <span class="tool-tier tier-flames">FLAMES</span>
+                <h3>Soul Map Generator</h3>
+                <p>Enter your birth data. Receive Sun, Moon, Rising signs + Life Path numerology + personalized spiritual profile. Your cosmic coordinates.</p>
+                <a href="#" class="btn btn-secondary" style="opacity: 0.5; pointer-events: none;">Coming Soon</a>
+            </div>
+
+            <!-- Sigilcraft - Coming Soon -->
+            <div class="tool-card">
+                <span class="tool-tier tier-flames">FLAMES</span>
+                <h3>Sigilcraft Companion</h3>
+                <p>Interactive sigil creation. Sacred geometry templates, drawing canvas, activation methods, journal integration. Turn intention into symbol.</p>
+                <a href="#" class="btn btn-secondary" style="opacity: 0.5; pointer-events: none;">Coming Soon</a>
+            </div>
+
+            <!-- Time Texture Journal - Free -->
+            <div class="tool-card">
+                <span class="tool-tier tier-free">FREE</span>
+                <h3>Time Texture Journal</h3>
+                <p>Three words daily describing how time felt. Build pattern recognition. See when time flows vs. when it sticks. Simple. Powerful.</p>
+                <a href="#" class="btn btn-secondary" style="opacity: 0.5; pointer-events: none;">Coming Soon</a>
+            </div>
+
+            <!-- Moment Compass - Coming Soon -->
+            <div class="tool-card">
+                <span class="tool-tier tier-players">PLAYERS</span>
+                <h3>The Moment Compass</h3>
+                <p>Points toward convergence in your timeline. Interactive navigation for finding where past, present, and future touch. Temporal architecture.</p>
+                <a href="#" class="btn btn-secondary" style="opacity: 0.5; pointer-events: none;">Coming Soon</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tiers Section -->
+    <section id="tiers">
+        <div class="section-title">
+            <h2>MEMBERSHIP TIERS</h2>
+            <p>Choose your level of access</p>
+        </div>
+
+        <div class="tiers-grid">
+            <!-- Sparks - Free -->
+            <div class="tier-card">
+                <div class="tier-name">SPARKS</div>
+                <div class="tier-price">FREE</div>
+                <div class="tier-desc">Entry point. Prove the framework works.</div>
+                <ul class="tier-features">
+                    <li>The Pause Chamber</li>
+                    <li>Time Texture Journal</li>
+                    <li>Basic Glitch Log</li>
+                    <li>Community Access</li>
+                </ul>
+                <a href="https://thefirstspark.shop" target="_blank" class="btn btn-secondary">Start Free</a>
+            </div>
+
+            <!-- Flames - $11 -->
+            <div class="tier-card">
+                <div class="tier-name">FLAMES</div>
+                <div class="tier-price">$11<span>/month</span></div>
+                <div class="tier-desc">Navigation begins. You're steering now.</div>
+                <ul class="tier-features">
+                    <li>Everything in Sparks</li>
+                    <li>Soul Map Generator</li>
+                    <li>Sigilcraft Companion (Basic)</li>
+                    <li>Origin Key Lore</li>
+                    <li>Weekly Practices</li>
+                    <li>Glyph Library</li>
+                </ul>
+                <a href="https://thefirstspark.shop" target="_blank" class="btn btn-secondary">Join Flames</a>
+            </div>
+
+            <!-- Players - $33 -->
+            <div class="tier-card recommended">
+                <div class="tier-name">PLAYERS</div>
+                <div class="tier-price">$33<span>/month</span></div>
+                <div class="tier-desc">Full access. You're building now.</div>
+                <ul class="tier-features">
+                    <li>Everything in Flames</li>
+                    <li>The Integration Architecture</li>
+                    <li>The Moment Compass</li>
+                    <li>Sigilcraft Companion (Full)</li>
+                    <li>7 Unlocks Training</li>
+                    <li>Probability Magnets Ritual</li>
+                    <li>Soul Map Reading</li>
+                    <li>Direct Access Channel</li>
+                </ul>
+                <a href="https://thefirstspark.shop" target="_blank" class="btn btn-primary">Join Players</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-title">
+            <h2>WHAT IS THIS?</h2>
+        </div>
+
+        <div class="about-content">
+            <p>The First Spark is a <strong>consciousness toolkit</strong> disguised as a membership.</p>
+            <p>These aren't PDFs you read once and forget. They're <strong>interactive applications</strong> that track your practice, recognize your patterns, and evolve as you do.</p>
+            <p>Built for people who suspect reality is more programmable than they've been told—and want tools to test that hypothesis.</p>
+            <p><strong>Observer → Player → Architect.</strong></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">✦ THE FIRST SPARK ✦</div>
+        <div class="footer-links">
+            <a href="https://thefirstspark.shop" target="_blank">Shop</a>
+            <a href="https://stan.store/thefirstspark" target="_blank">Stan Store</a>
+            <a href="mailto:kjpthefirstspark@gmail.com">Contact</a>
+        </div>
+        <p class="footer-copy">© 2025 The First Spark. All tools save locally. Your data stays yours.</p>
+    </footer>
+
+</body>
+</html>
